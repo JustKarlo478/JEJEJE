@@ -354,9 +354,8 @@
 
 <!-- Music -->
 <button class="music-btn" id="musicBtn" title="Música">🎵</button>
-<iframe id="ytPlayer" width="0" height="0"
-  src="https://www.youtube.com/embed/kkdBbBty9lo?enablejsapi=1&autoplay=0&loop=1&playlist=kkdBbBty9lo"
-  allow="autoplay" style="position:fixed;opacity:0;pointer-events:none;"></iframe>
+<div id="ytPlayer" style="position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <!-- JoJo stripe top -->
 <div class="jojo-stripe"></div>
@@ -556,18 +555,27 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Music via YouTube iframe
-  const btn = document.getElementById('musicBtn');
-  const iframe = document.getElementById('ytPlayer');
+  // Music via YouTube IFrame API
+  let player;
   let playing = false;
+  const btn = document.getElementById('musicBtn');
+
+  window.onYouTubeIframeAPIReady = function() {
+    player = new YT.Player('ytPlayer', {
+      height: '1', width: '1',
+      videoId: 'kkdBbBty9lo',
+      playerVars: { autoplay: 0, loop: 1, playlist: 'kkdBbBty9lo' },
+    });
+  };
 
   btn.addEventListener('click', () => {
+    if (!player) return;
     if (!playing) {
-      iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      player.playVideo();
       btn.textContent = '🔊';
       playing = true;
     } else {
-      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      player.pauseVideo();
       btn.textContent = '🎵';
       playing = false;
     }
