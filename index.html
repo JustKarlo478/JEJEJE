@@ -354,9 +354,9 @@
 
 <!-- Music -->
 <button class="music-btn" id="musicBtn" title="Música">🎵</button>
-<audio id="bgMusic" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-</audio>
+<iframe id="ytPlayer" width="0" height="0"
+  src="https://www.youtube.com/embed/kkdBbBty9lo?enablejsapi=1&autoplay=0&loop=1&playlist=kkdBbBty9lo"
+  allow="autoplay" style="position:fixed;opacity:0;pointer-events:none;"></iframe>
 
 <!-- JoJo stripe top -->
 <div class="jojo-stripe"></div>
@@ -556,13 +556,21 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Music
+  // Music via YouTube iframe
   const btn = document.getElementById('musicBtn');
-  const audio = document.getElementById('bgMusic');
+  const iframe = document.getElementById('ytPlayer');
   let playing = false;
+
   btn.addEventListener('click', () => {
-    if(playing){ audio.pause(); btn.textContent='🎵'; playing=false; }
-    else { audio.play().catch(()=>{}); btn.textContent='🔊'; playing=true; }
+    if (!playing) {
+      iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      btn.textContent = '🔊';
+      playing = true;
+    } else {
+      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      btn.textContent = '🎵';
+      playing = false;
+    }
   });
 
   // Scroll reveal
