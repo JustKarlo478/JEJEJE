@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ana 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6eb4;
+    --yellow: #ffe156;
+    --teal: #43e8d8;
+    --purple: #b84fff;
+    --orange: #ff9f43;
+    --bg: #0a0a1a;
+    --white: #fff8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Cursor */
+  .cursor { position: fixed; width: 12px; height: 12px; background: var(--yellow); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
+  .cursor-ring { position: fixed; width: 32px; height: 32px; border: 2px solid var(--pink); border-radius: 50%; pointer-events: none; z-index: 9998; transition: all 0.14s; opacity: 0.7; }
+
+  /* Floating hearts bg */
+  .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .hrt {
+    position: absolute; font-size: 22px; opacity: 0;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; text-align: center;
+    padding: 40px 24px;
+    background: radial-gradient(ellipse at 50% 40%, rgba(255,110,180,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(67,232,216,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(184,79,255,0.12) 0%, transparent 50%),
+                var(--bg);
+  }
+
+  /* JoJo diagonal stripes top accent */
+  .jojo-stripe {
+    position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--pink) 0px, var(--pink) 40px,
+      var(--yellow) 40px, var(--yellow) 80px,
+      var(--teal) 80px, var(--teal) 120px,
+      var(--purple) 120px, var(--purple) 160px,
+      var(--orange) 160px, var(--orange) 200px
+    );
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--yellow); color: #111;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 4px;
+    padding: 5px 18px; border-radius: 2px;
+    margin-bottom: 20px;
+    animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1) both;
+    box-shadow: 4px 4px 0 var(--orange);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 16vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.1s both;
+  }
+  .hero h1 .name1 {
+    display: block;
+    -webkit-text-stroke: 3px var(--pink);
+    color: transparent;
+    filter: drop-shadow(0 0 20px var(--pink));
+  }
+  .hero h1 .name2 {
+    display: block;
+    color: var(--yellow);
+    filter: drop-shadow(0 0 20px var(--yellow));
+    font-size: 0.55em;
+  }
+
+  .hero-sub {
+    font-size: 18px; color: rgba(255,248,240,0.7);
+    margin-top: 16px; letter-spacing: 1px;
+    animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.2s both;
+  }
+
+  /* Scroll arrow */
+  .scroll-hint {
+    position: absolute; bottom: 32px;
+    font-size: 28px;
+    animation: bounce 1.5s ease infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-section {
+    padding: 80px 24px;
+    background: linear-gradient(135deg, #0f0f22 0%, #1a0a2e 100%);
+    text-align: center; position: relative; z-index: 1;
+  }
+  .section-badge {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px; letter-spacing: 5px;
+    color: var(--teal); border: 1px solid var(--teal);
+    padding: 4px 16px; margin-bottom: 16px;
+  }
+  .countdown-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--white); margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+  .countdown-title span { color: var(--pink); }
+
+  .countdown-grid {
+    display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+  }
+  .cd-box {
+    background: rgba(255,255,255,0.04);
+    border: 2px solid var(--purple);
+    border-radius: 4px; padding: 24px 28px;
+    min-width: 100px;
+    box-shadow: 0 0 20px rgba(184,79,255,0.2), 4px 4px 0 var(--purple);
+    transition: transform 0.2s;
+  }
+  .cd-box:hover { transform: translateY(-4px); }
+  .cd-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px; line-height: 1;
+    color: var(--yellow);
+    filter: drop-shadow(0 0 12px var(--yellow));
+  }
+  .cd-label { font-size: 11px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; margin-top: 4px; }
+
+  /* ===== LOVE MESSAGE ===== */
+  .message-section {
+    padding: 80px 24px;
+    max-width: 820px; margin: 0 auto;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .msg-deco {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px; line-height: 0.8;
+    color: rgba(255,110,180,0.07);
+    position: absolute; top: 20px; left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none; white-space: nowrap;
+    letter-spacing: 4px;
+  }
+  .message-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2.5vw, 22px);
+    line-height: 1.9;
+    color: var(--white);
+    position: relative; z-index: 2;
+    text-shadow: 0 0 40px rgba(255,110,180,0.2);
+  }
+  .message-text .highlight {
+    color: var(--yellow);
+    font-style: normal; font-weight: 700;
+  }
+
+  /* ===== POEM ===== */
+  .poem-section {
+    padding: 80px 24px;
+    background: linear-gradient(135deg, #0d1a2a 0%, #1a0d1a 50%, #0a1a1a 100%);
+    position: relative; overflow: hidden; z-index: 1;
+  }
+  .poem-section::before {
+    content: '❦';
+    position: absolute; font-size: 300px;
+    opacity: 0.03; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  /* JoJo-style vertical accent bars */
+  .jojo-bars {
+    display: flex; gap: 6px; justify-content: center; margin-bottom: 32px;
+  }
+  .jojo-bar {
+    width: 14px; height: 60px; border-radius: 2px;
+  }
+
+  .poem-inner { max-width: 680px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+  .poem-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 6vw, 56px);
+    letter-spacing: 4px; margin-bottom: 40px;
+  }
+  .poem-title span { color: var(--pink); }
+
+  .poem-stanza { margin-bottom: 36px; }
+  .poem-line {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 2; color: var(--white);
+    display: block;
+  }
+  .poem-line.accent { color: var(--teal); font-style: italic; }
+  .poem-line.bold { color: var(--yellow); font-weight: 700; font-style: normal; font-size: 1.1em; }
+
+  /* ===== REASONS ===== */
+  .reasons-section {
+    padding: 80px 24px; position: relative; z-index: 1;
+    background: var(--bg);
+  }
+  .reasons-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 6vw, 60px);
+    text-align: center; letter-spacing: 3px;
+    margin-bottom: 56px;
+  }
+  .reasons-title span { color: var(--orange); }
+
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; max-width: 1000px; margin: 0 auto;
+  }
+
+  .reason-card {
+    background: rgba(255,255,255,0.03);
+    border-radius: 4px; padding: 28px 24px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: none;
+  }
+  .reason-card:nth-child(1) { border: 2px solid var(--pink); box-shadow: 4px 4px 0 var(--pink); }
+  .reason-card:nth-child(2) { border: 2px solid var(--yellow); box-shadow: 4px 4px 0 var(--yellow); }
+  .reason-card:nth-child(3) { border: 2px solid var(--teal); box-shadow: 4px 4px 0 var(--teal); }
+  .reason-card:nth-child(4) { border: 2px solid var(--purple); box-shadow: 4px 4px 0 var(--purple); }
+  .reason-card:nth-child(5) { border: 2px solid var(--orange); box-shadow: 4px 4px 0 var(--orange); }
+  .reason-card:nth-child(6) { border: 2px solid var(--pink); box-shadow: 4px 4px 0 var(--pink); }
+  .reason-card:nth-child(7) { border: 2px solid var(--teal); box-shadow: 4px 4px 0 var(--teal); }
+  .reason-card:nth-child(8) { border: 2px solid var(--yellow); box-shadow: 4px 4px 0 var(--yellow); }
+
+  .reason-card:hover { transform: translate(-3px, -3px); }
+  .reason-card:hover { box-shadow: 7px 7px 0 currentColor; }
+
+  .reason-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; line-height: 1; opacity: 0.15;
+    position: absolute; bottom: 8px; right: 16px;
+  }
+  .reason-emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+  .reason-text {
+    font-size: 17px; font-weight: 700; line-height: 1.5;
+    color: var(--white);
+  }
+
+  /* ===== FINAL ===== */
+  .final-section {
+    padding: 100px 24px;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,110,180,0.15) 0%, transparent 65%), var(--bg);
+    position: relative; z-index: 1;
+  }
+  .final-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 12vw, 110px);
+    letter-spacing: 6px; line-height: 0.9;
+    animation: glowPulse 2s ease-in-out infinite alternate;
+  }
+  .final-big .line1 { display: block; color: var(--pink); }
+  .final-big .line2 { display: block; color: var(--yellow); }
+  .final-big .line3 { display: block; -webkit-text-stroke: 2px var(--teal); color: transparent; font-size: 0.6em; }
+
+  @keyframes glowPulse {
+    from { filter: drop-shadow(0 0 10px var(--pink)); }
+    to { filter: drop-shadow(0 0 30px var(--pink)) drop-shadow(0 0 60px var(--yellow)); }
+  }
+
+  .final-sub { font-size: 15px; color: rgba(255,248,240,0.5); margin-top: 24px; letter-spacing: 3px; text-transform: uppercase; }
+
+  /* JoJo stripe bottom */
+  .jojo-stripe-bottom {
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--teal) 0px, var(--teal) 40px,
+      var(--purple) 40px, var(--purple) 80px,
+      var(--pink) 80px, var(--pink) 120px,
+      var(--yellow) 120px, var(--yellow) 160px,
+      var(--orange) 160px, var(--orange) 200px
+    );
+  }
+
+  /* music player */
+  .music-btn {
+    position: fixed; bottom: 32px; left: 32px; z-index: 500;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--pink); border: none; cursor: none;
+    font-size: 22px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(255,110,180,0.5);
+    transition: all 0.3s;
+    animation: musicPulse 2s ease infinite;
+  }
+  .music-btn:hover { transform: scale(1.15); }
+  @keyframes musicPulse {
+    0%,100% { box-shadow: 0 4px 20px rgba(255,110,180,0.5); }
+    50% { box-shadow: 0 4px 40px rgba(255,110,180,0.9); }
+  }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(.34,1.1,.64,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:600px) {
+    .cd-box { padding: 16px 18px; min-width: 70px; }
+    .cd-num { font-size: 38px; }
+    .reason-card { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Floating hearts -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- Music -->
+<button class="music-btn" id="musicBtn" title="Música">🎵</button>
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- JoJo stripe top -->
+<div class="jojo-stripe"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-tag">✦ UNA PÁGINA HECHA CON AMOR ✦</div>
+  <h1>
+    <span class="name1">ANA</span>
+    <span class="name2">mi Grillo 🦗💛</span>
+  </h1>
+  <p class="hero-sub">Para ti, hoy y siempre 💕</p>
+  <div class="scroll-hint">↓</div>
+</section>
+
+<!-- ===== COUNTDOWN ===== -->
+<section class="countdown-section">
+  <div class="section-badge">CUENTA REGRESIVA</div>
+  <h2 class="countdown-title">Faltan para nuestra <span>fecha especial</span> 🗓️</h2>
+  <div class="countdown-grid">
+    <div class="cd-box"><div class="cd-num" id="cd-dias">--</div><div class="cd-label">Días</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-horas">--</div><div class="cd-label">Horas</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-min">--</div><div class="cd-label">Minutos</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-seg">--</div><div class="cd-label">Segundos</div></div>
+  </div>
+</section>
+
+<!-- ===== MESSAGE ===== -->
+<section class="message-section reveal">
+  <div class="msg-deco">TE AMO</div>
+  <p class="message-text">
+    Te amo, no solo es un te amo normal —
+    tú sabes que cada que me hablas, <span class="highlight">mi amor por ti sigue creciendo</span>
+    y realmente me encanta verte cada día enfocada en tus estudios,
+    en tu independencia y ver cómo llegas a superarte cada día más.
+    <br><br>
+    Eres alguien que <span class="highlight">amo y admiro demasiado</span>,
+    no sabes lo feliz que me hace pasar otro día más contigo.
+    Un día contigo es igual a <span class="highlight">mil nuevas aventuras</span>
+    y formas de poder demostrarte mi amor.
+    <br><br>
+    Eres tan brillante como el sol de mis mañanas,
+    eres tan hermosa como los girasoles bellos,
+    eres tan preciosa que hasta el ciego volvería a ver por solo verte...
+    aunque tengo la suerte de que el único que puede decir con honor
+    que eres mi novia, <span class="highlight">soy yo</span>.
+    <br><br>
+    Te amo muchísimo, mi amor. Hice esta página porque quería
+    que hoy tuvieras un lindo inicio de día, y porque en cualquier fecha
+    puedo demostrarte mi amor con <span class="highlight">lo que más me apasiona</span>: crear páginas webs.
+    <br><br>
+    <span class="highlight">TE AMO MUCHÍSIMO 💛</span>
+  </p>
+</section>
+
+<!-- ===== POEM ===== -->
+<section class="poem-section">
+  <div class="poem-inner reveal">
+    <div class="jojo-bars">
+      <div class="jojo-bar" style="background:var(--pink)"></div>
+      <div class="jojo-bar" style="background:var(--yellow)"></div>
+      <div class="jojo-bar" style="background:var(--teal)"></div>
+      <div class="jojo-bar" style="background:var(--purple)"></div>
+      <div class="jojo-bar" style="background:var(--orange)"></div>
+    </div>
+    <h2 class="poem-title">Un poema para <span>ti</span></h2>
+
+    <div class="poem-stanza">
+      <span class="poem-line">En el jardín del tiempo donde todo florece,</span>
+      <span class="poem-line accent">tú eres el girasol que nunca se adormece,</span>
+      <span class="poem-line">con ojos que guardan el cielo de enero,</span>
+      <span class="poem-line">y una sonrisa que vale un mundo entero.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="poem-line">Admiro tu fuerza, tu luz, tu camino,</span>
+      <span class="poem-line accent">la forma en que sigues tu propio destino,</span>
+      <span class="poem-line">cada paso que das me enamora más fuerte,</span>
+      <span class="poem-line">qué suerte tan grande tenerte, qué suerte.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="poem-line">Tu cabello es la brisa del viento de mayo,</span>
+      <span class="poem-line accent">tus brazos son abrigo, refugio y amparo,</span>
+      <span class="poem-line">tu mirada me lleva a un lugar sin igual,</span>
+      <span class="poem-line">donde todo es contigo y nada hace mal.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="poem-line bold">Te amo, mi Grillo, mi sol, mi razón,</span>
+      <span class="poem-line bold">eres tú quien habita mi pecho y corazón.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REASONS ===== -->
+<section class="reasons-section">
+  <h2 class="reasons-title reveal">Por qué te <span>amo</span> 💛</h2>
+  <div class="reasons-grid reveal">
+    <div class="reason-card">
+      <span class="reason-emoji">💝</span>
+      <div class="reason-text">Su forma de amar — única, profunda y completamente auténtica</div>
+      <div class="reason-num">01</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">☀️</span>
+      <div class="reason-text">Su forma positiva de ver las cosas, incluso en los días difíciles</div>
+      <div class="reason-num">02</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">🔥</span>
+      <div class="reason-text">Su forma de demostrar pasión por lo que más ama en la vida</div>
+      <div class="reason-num">03</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">😊</span>
+      <div class="reason-text">Su bella sonrisa que ilumina cualquier lugar donde aparece</div>
+      <div class="reason-num">04</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">🌿</span>
+      <div class="reason-text">Su hermoso cabello que el viento siempre parece acariciar</div>
+      <div class="reason-num">05</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">✨</span>
+      <div class="reason-text">Sus bellos ojos que guardan un universo entero dentro</div>
+      <div class="reason-num">06</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">🌌</span>
+      <div class="reason-text">Su hermosa mirada que enamora sin siquiera intentarlo</div>
+      <div class="reason-num">07</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-emoji">🤗</span>
+      <div class="reason-text">Sus brazos fuertes que son el abrazo más seguro del mundo</div>
+      <div class="reason-num">08</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL ===== -->
+<section class="final-section">
+  <div class="final-big">
+    <span class="line1">TE AMO</span>
+    <span class="line2">ANA 💛</span>
+    <span class="line3">siempre y para siempre</span>
+  </div>
+  <p class="final-sub">Hecho con amor · por Karlo 💻❤️</p>
+</section>
+
+<div class="jojo-stripe-bottom"></div>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx-6+'px'; cursor.style.top=my-6+'px';
+  });
+  (function loop(){ rx+=(mx-rx-16)*0.13; ry+=(my-ry-16)*0.13;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  if('ontouchstart' in window){ cursor.style.display='none'; ring.style.display='none'; document.body.style.cursor='auto'; }
+
+  // Floating hearts
+  const emojis = ['💛','💕','🌻','💖','✨','🦗','💝','🌸'];
+  const hc = document.getElementById('heartsContainer');
+  for(let i=0;i<28;i++){
+    const h = document.createElement('div');
+    h.className='hrt';
+    h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    h.style.left = Math.random()*100+'%';
+    h.style.fontSize = (14+Math.random()*18)+'px';
+    h.style.animationDuration = (8+Math.random()*14)+'s';
+    h.style.animationDelay = (Math.random()*12)+'s';
+    hc.appendChild(h);
+  }
+
+  // Countdown to 27/12/2026
+  function updateCountdown(){
+    const target = new Date('2026-12-27T00:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if(diff <= 0){ document.getElementById('cd-dias').textContent='0'; return; }
+    const dias = Math.floor(diff/86400000);
+    const horas = Math.floor((diff%86400000)/3600000);
+    const min = Math.floor((diff%3600000)/60000);
+    const seg = Math.floor((diff%60000)/1000);
+    document.getElementById('cd-dias').textContent = String(dias).padStart(2,'0');
+    document.getElementById('cd-horas').textContent = String(horas).padStart(2,'0');
+    document.getElementById('cd-min').textContent = String(min).padStart(2,'0');
+    document.getElementById('cd-seg').textContent = String(seg).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Music
+  const btn = document.getElementById('musicBtn');
+  const audio = document.getElementById('bgMusic');
+  let playing = false;
+  btn.addEventListener('click', () => {
+    if(playing){ audio.pause(); btn.textContent='🎵'; playing=false; }
+    else { audio.play().catch(()=>{}); btn.textContent='🔊'; playing=true; }
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  revealEls.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
